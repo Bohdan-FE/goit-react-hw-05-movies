@@ -1,5 +1,5 @@
 import { searchMovies } from 'API/api';
-import { MovieList } from 'pages/Movies/Home/Home.styled';
+import { MovieList } from 'page/Home/Home.styled';
 import MovieItem from 'components/MovieItem/MovieItem';
 import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
