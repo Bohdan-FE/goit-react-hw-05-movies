@@ -1,6 +1,7 @@
 import { getMovieCredits } from 'API/api';
 import { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { ActorList } from './Cast.styled';
 
 function Cast() {
   const [cast, setCast] = useState([]);
@@ -20,11 +21,21 @@ function Cast() {
 
   return (
     <>
-      <ul>
+      <ActorList>
         {cast.map(actor => (
-          <li key={actor.id}>{actor.original_name}</li>
+          <li key={actor.id}>
+            <img
+              src={
+                actor.profile_path
+                  ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path
+                  : 'https://image.tmdb.org/t/p/w500/tPkgBEpq1Rx7wcTFEjZFRhbTLrd.jpg'
+              }
+              alt="actor.name"
+            />
+            <p>{actor.name}</p>
+          </li>
         ))}
-      </ul>
+      </ActorList>
       <Outlet />
     </>
   );

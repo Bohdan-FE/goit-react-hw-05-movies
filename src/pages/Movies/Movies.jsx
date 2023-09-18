@@ -1,6 +1,9 @@
 import { searchMovies } from 'API/api';
+import { MovieList } from 'pages/Movies/Home/Home.styled';
+import MovieItem from 'components/MovieItem/MovieItem';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { Form } from './Movies.styled';
 
 function Movies() {
   const [movies, setMovies] = useState([]);
@@ -25,36 +28,31 @@ function Movies() {
 
   return (
     <>
-      <form
+      <Form
         action="submit"
         onSubmit={e => {
           e.preventDefault();
           setSearchParams({ query });
         }}
       >
-        <label htmlFor="query">Find movies</label>
         <input
           type="text"
           name="query"
-          id="query"
           placeholder="search..."
           value={query}
           onChange={e => setQuery(e.target.value)}
         />
         <button>Search</button>
-      </form>
-      <ul>
+      </Form>
+      <MovieList>
         {movies.map(movie => (
-          <li key={movie.id}>
-            <Link
-              to={`/movies/${movie.id}`}
-              state={{ from: location.pathname + location.search }}
-            >
-              {movie.title}
-            </Link>
-          </li>
+          <MovieItem
+            key={movie.id}
+            movie={movie}
+            state={{ from: location.pathname + location.search }}
+          />
         ))}
-      </ul>
+      </MovieList>
     </>
   );
 }
