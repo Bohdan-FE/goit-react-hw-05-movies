@@ -9,7 +9,7 @@ import {
 } from './MovieDetails.styled';
 
 function MovieDetails() {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
   const ref = useRef(location);
@@ -25,6 +25,10 @@ function MovieDetails() {
     }
     getMovie();
   }, [movieId]);
+
+  if (!movie) {
+    return;
+  }
 
   return (
     <>

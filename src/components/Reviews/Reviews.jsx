@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function Reviews() {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState(null);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -17,6 +17,10 @@ function Reviews() {
     }
     getReviews();
   }, [movieId]);
+
+  if (!reviews) {
+    return;
+  }
 
   return (
     <>

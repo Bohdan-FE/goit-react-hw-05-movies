@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-export const Form = styled.form`
+
+export const FormStyled = styled.form`
   border-radius: 5px;
   display: inline-block;
   font-size: 0px;

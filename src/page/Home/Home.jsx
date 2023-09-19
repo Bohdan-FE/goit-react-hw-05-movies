@@ -9,21 +9,16 @@ function Home() {
   const location = useLocation();
 
   useEffect(() => {
-    async function getMovies() {
-      const movies = await getData();
-      setMovies(movies);
+    async function getData() {
+      try {
+        const movies = await getMovies();
+        setMovies(movies.results);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    getMovies();
+    getData();
   }, []);
-
-  async function getData() {
-    try {
-      const movies = await getMovies();
-      return movies.results;
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <>
