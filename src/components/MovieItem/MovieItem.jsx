@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 function MovieItem({ movie, state }) {
   const { id, poster_path, title, vote_average } = movie;
+
   return (
     <li>
       <Link to={`/movies/${id}`} state={state}>

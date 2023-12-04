@@ -9,7 +9,7 @@ function PaginationComponent({ page, onChange, totalPages }) {
         shape="rounded"
         showFirstButton
         showLastButton
-        page={page}
+        page={Number(page)}
         onChange={(_, num) => onChange(num)}
         sx={{ marginY: 3, marginX: 'auto' }}
       />

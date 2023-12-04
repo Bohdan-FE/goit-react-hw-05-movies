@@ -7,10 +7,10 @@ import PaginationComponent from 'components/Pagination/PaginationComponent';
 
 function Home() {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get('page') || 1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page') ?? '1';
+  const location = useLocation();
 
   useEffect(() => {
     async function getData() {
@@ -18,7 +18,6 @@ function Home() {
         const movies = await getMovies(page);
         setMovies(movies.results);
         setTotalPages(movies.total_pages);
-        setSearchParams({ page });
       } catch (error) {
         console.log(error);
       }
@@ -27,13 +26,16 @@ function Home() {
   }, [page, setSearchParams]);
 
   const handleChangePage = page => {
-    setPage(page);
+    setSearchParams({ page });
   };
 
   return (
     <>
       <Title>Trending movies</Title>
-      <MovieList state={{ from: location.pathname }} movies={movies} />
+      <MovieList
+        state={{ from: location.pathname + location.search }}
+        movies={movies}
+      />
       {totalPages > 1 && (
         <PaginationComponent
           page={page}

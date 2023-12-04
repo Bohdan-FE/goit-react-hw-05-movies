@@ -7,11 +7,11 @@ import PaginationComponent from 'components/Pagination/PaginationComponent';
 
 function Movies() {
   const [movies, setMovies] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get('page') || '1');
   const location = useLocation();
   const query = searchParams.get('query');
-  const [totalPages, setTotalPages] = useState(1);
+  const page = searchParams.get('page') ?? '1';
 
   useEffect(() => {
     if (!query) {
@@ -22,22 +22,15 @@ function Movies() {
         const movies = await searchMovies(query, page);
         setMovies(movies.results);
         setTotalPages(movies.total_pages);
-        setSearchParams({
-          query,
-          page,
-        });
       } catch (err) {
         console.log(err);
       }
     }
     getMovies();
-    if (totalPages < page) {
-      setPage(1);
-    }
-  }, [query, page, setSearchParams, totalPages]);
+  }, [query, page, setSearchParams]);
 
   const handleChangePage = page => {
-    setPage(page);
+    setSearchParams({ query, page });
   };
 
   return (

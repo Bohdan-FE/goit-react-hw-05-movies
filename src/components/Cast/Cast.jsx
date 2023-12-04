@@ -22,19 +22,21 @@ function Cast() {
   return (
     <>
       <ActorList>
-        {cast.map(actor => (
-          <li key={actor.id}>
-            <img
-              src={
-                actor.profile_path
-                  ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path
-                  : 'https://image.tmdb.org/t/p/w500/tPkgBEpq1Rx7wcTFEjZFRhbTLrd.jpg'
-              }
-              alt="actor.name"
-            />
-            <p>{actor.name}</p>
-          </li>
-        ))}
+        {cast
+          .filter(actor => actor.profile_path !== null)
+          .map(actor => (
+            <li key={actor.id}>
+              <img
+                src={
+                  actor.profile_path
+                    ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path
+                    : 'https://image.tmdb.org/t/p/w500/tPkgBEpq1Rx7wcTFEjZFRhbTLrd.jpg'
+                }
+                alt="actor.name"
+              />
+              <p>{actor.name}</p>
+            </li>
+          ))}
       </ActorList>
       <Outlet />
     </>
